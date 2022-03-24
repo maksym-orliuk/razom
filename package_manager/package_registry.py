@@ -7,10 +7,12 @@ class PackageRegistry:
 
     def install_package(self, package: Package):
         if package.dependencies:
+            print(f'{package.name} depends on {package.dependencies}')
+            print(f'Installing {package.name} package dependencies...')
+
             for dependency in package.dependencies:
-                print(f'{package.name} package depends on: {package.dependencies}')
-                print(f'Installing {package.name} package dependencies...')
                 self.install_package(package.dependencies[dependency])
+
         self._packages[package.name] = package
         print(f'{package} successfully installed!')
 
@@ -18,7 +20,7 @@ class PackageRegistry:
         if package.name not in self._packages:
             print(f'{package} is not installed')
         elif package.depended_packages:
-            print(f"Can't delete {package} because of depended packages: {package.depended_packages}")
+            print(f"Can't delete {package} because of depended packages: {list(package.depended_packages.keys())}")
         else:
             self._packages.pop(package.name)
             for dependency in package.dependencies.values():

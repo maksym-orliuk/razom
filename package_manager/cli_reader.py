@@ -1,7 +1,7 @@
-from typing import Dict, List, Tuple
+from typing import List
 
-from package_registry import PackageRegistry
-from package import Package
+from package_manager.package_registry import PackageRegistry
+from package_manager.package import Package
 
 PACKAGE_STORAGE = {}
 
@@ -52,7 +52,6 @@ class CLIReader:
         return command_args[0], command_args[1:]
 
     def read_input_commands(self, commands: List[str]):
-        # parsed_commands = List[Tuple[str, List[str]]]
         parsed_commands = [self._parse_command(command) for command in commands]
 
         for command, args in parsed_commands:
@@ -60,7 +59,28 @@ class CLIReader:
 
 
 cli = CLIReader()
-with open('input.txt') as f:
-    commands = f.readlines()
+commands = []
 
-cli.read_input_commands(commands)
+## Uncomment this if you want to run commands from the input.txt file
+
+# with open('input.txt') as f:
+#     commands = f.readlines()
+#
+# cli.read_input_commands(commands)
+
+
+# Comment the code bellow if you want to test the app with commands from file input.txt
+
+if __name__ == '__main__':
+    continue_input = True
+    while continue_input:
+        command = input('ENTER COMMAND: ')
+        if command != 'END':
+            commands.append(command)
+        else:
+            continue_input = False
+
+    print('You entered the next commands:')
+    for command in commands:
+        print(command)
+    cli.read_input_commands(commands)

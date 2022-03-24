@@ -1,28 +1,29 @@
-from package import Package
-from package_registry import PackageRegistry
+from package_manager import CLIReader
 
 
-p_r = PackageRegistry()
-p1 = Package('p1')
-p2 = Package('p2')
-p3 = Package('p3')
-p4 = Package('p4')
-p5 = Package('p5')
-p6 = Package('p6')
+cli = CLIReader()
+commands = []
 
-p1.add_dependency(p2)
-p2.add_dependency(p3)
+## Uncomment this if you want to run commands from the input.txt file
 
-p2.add_dependency(p4)
-p3.add_dependency(p4)
+# with open('input.txt') as f:
+#     commands = f.readlines()
+#
+# cli.read_input_commands(commands)
 
-p4.add_dependency(p5)
-p6.add_dependency(p3)
 
-p_r.install_package(p1)
-# p_r.install_package(p6)
-print(p_r._packages)
+# Comment the code bellow if you want to test the app with commands from file input.txt
 
-p_r.remove_package(p1)
-p_r.remove_package(p6)
-print(p_r._packages)
+if __name__ == '__main__':
+    continue_input = True
+    while continue_input:
+        command = input('ENTER COMMAND: ')
+        if command != 'END':
+            commands.append(command)
+        else:
+            continue_input = False
+
+    print('You entered the next commands:')
+    for command in commands:
+        print(command)
+    cli.read_input_commands(commands)
