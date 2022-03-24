@@ -1,1 +1,1 @@
-from cli_reader import CLIReader
+from .cli_reader import CLIReader
