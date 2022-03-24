@@ -7,6 +7,9 @@ PACKAGE_STORAGE = {}
 
 
 class CLIReader:
+    """
+    Wrapper for PackageRegistry. Serves as a client commutication layer.
+    """
     def __init__(self):
         self._package_registry = PackageRegistry()
 
@@ -48,10 +51,20 @@ class CLIReader:
 
     @staticmethod
     def _parse_command(command: str):
+        """
+        Parse command string and returns command name and it's arguments
+        :param command: input command
+        :return: command name, command arguments
+        """
         command_args = command.split()
         return command_args[0], command_args[1:]
 
-    def read_input_commands(self, commands: List[str]):
+    def exec_input_commands(self, commands: List[str]):
+        """
+        Executing input commands. It parses them and runs related commands.
+        :param commands: list of user input commands
+        :return:
+        """
         parsed_commands = [self._parse_command(command) for command in commands]
 
         for command, args in parsed_commands:
@@ -83,4 +96,4 @@ if __name__ == '__main__':
     print('You entered the next commands:')
     for command in commands:
         print(command)
-    cli.read_input_commands(commands)
+    cli.exec_input_commands(commands)

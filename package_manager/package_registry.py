@@ -2,6 +2,9 @@ from package import Package
 
 
 class PackageRegistry:
+    """
+    It's a package manager allows you to install, remove and list packages.
+    """
     def __init__(self):
         self._packages = {}
 
